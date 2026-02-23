@@ -1,9 +1,10 @@
 from wtforms import Form
-from wtforms import StringField, IntegerField, EmailField, PasswordField
+from wtforms import StringField, IntegerField, EmailField,PasswordField
 from wtforms import validators
 
 
-class UsarForm(Form):
+class UserForm(Form):
+    matricula=IntegerField("Matricula")
     nombre=StringField('Nombre')
     apaterno=StringField('Apaterno')
     amaterno=StringField('Amaterno')
