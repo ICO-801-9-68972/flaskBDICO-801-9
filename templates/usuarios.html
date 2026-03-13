@@ -1,56 +1,29 @@
-{% extends "layout.html" %} {% block container %} {% import "_macros.html" as
-macros %}
+{% extends "layout.html" %} {% block container %} {% import "_macros.html" as macros %}
 
 <div class="py-32 relative overflow-x-auto sm:rounded-lg">
   <form action="" method="POST" novalidate class="max-w-md mx-auto">
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.matricula, class="block py-2.5 px-30 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
+      {{macros.camposNuevos(form.matricula, class="block py-2.5 px-30 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer")}}
     </div>
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.nombre, class="block py-2.5 px-30 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
+      {{macros.camposNuevos(form.nombre, class="block py-2.5 px-30 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer")}}
     </div>
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.apaterno,class="block py-2.5 px-0 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
+      {{macros.camposNuevos(form.apaterno,class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer")}}
     </div>
-
-
-<div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.amaterno,class="block py-2.5 px-0 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
-    </div>
-
-
-<div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.edad,class="block py-2.5 px-0 w-full
-      text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
-    </div>
-
 
     <div class="relative z-0 w-full mb-5 group">
-      {{macros.campoNuevo(form.correo, class="block py-2.5 px-0 w-full text-sm
-      text-gray-900 bg-transparent border-0 border-b-2 border-gray-300
-      appearance-none dark:text-white dark:border-gray-600
-      dark:focus:border-blue-500 focus:outline-none focus:ring-0
-      focus:border-blue-600 peer")}}
+      {{macros.camposNuevos(form.amaterno,class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer")}}
     </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.camposNuevos(form.edad,class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer")}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.camposNuevos(form.correo, class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer")}}
+    </div>
+    
     <div class="grid md:grid-cols-2 md:gap-6">
       <input
         type="submit"
@@ -64,20 +37,18 @@ macros %}
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
         </svg>
         Cancelar
-    </a>
+      </a>
     </div>
   </form>
 </div>
 
 <div class="py-32 relative overflow-x-auto sm:rounded-lg">
-    <h1 class="text-2xl font-bold"></h1>Matricula: {{mat}}</h1>
+    <h1 class="text-2xl font-bold">Matricula: {{mat}}</h1>
     <h1 class="text-2xl font-bold">Nombre: {{nom}}</h1>
     <h1 class="text-2xl font-bold">Apellido Paterno: {{apa}}</h1>
     <h1 class="text-2xl font-bold">Apellido Materno: {{ama}}</h1>
     <h1 class="text-2xl font-bold">Edad: {{edad}}</h1>
     <h1 class="text-2xl font-bold">Correo: {{email}}</h1>
-
 </div>
-
 
 {%endblock%}
