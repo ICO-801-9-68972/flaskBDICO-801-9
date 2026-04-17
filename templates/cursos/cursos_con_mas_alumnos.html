@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}Cursos con Más Alumnos{% endblock %}
+
+{% block container %}
+<div class="py-6 px-4 max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">📈 Cursos con Más Alumnos</h1>
+    <p class="text-gray-600 dark:text-gray-300 mb-8 text-lg">Cursos ordenados por número de alumnos inscritos</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border-2 border-purple-200 dark:border-purple-700">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+            <span class="bg-purple-100 dark:bg-purple-700 text-purple-700 dark:text-purple-200 rounded-full w-8 h-8 flex items-center justify-center mr-3 font-bold">📊</span>
+            Estadísticas de Inscripciones por Curso
+        </h2>
+
+        <div class="overflow-x-auto bg-white dark:bg-gray-700 rounded-lg border-2 border-gray-200 dark:border-gray-600">
+            <table class="min-w-full divide-y-2 divide-gray-300 dark:divide-gray-600">
+                <thead class="bg-purple-100 dark:bg-purple-900">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-sm font-bold text-purple-900 dark:text-purple-100 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-4 text-left text-sm font-bold text-purple-900 dark:text-purple-100 uppercase tracking-wider">Nombre del Curso</th>
+                        <th class="px-6 py-4 text-left text-sm font-bold text-purple-900 dark:text-purple-100 uppercase tracking-wider">Maestro</th>
+                        <th class="px-6 py-4 text-left text-sm font-bold text-purple-900 dark:text-purple-100 uppercase tracking-wider">Número de Alumnos</th>
+                        <th class="px-6 py-4 text-left text-sm font-bold text-purple-900 dark:text-purple-100 uppercase tracking-wider">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y-2 divide-gray-200 dark:divide-gray-600">
+                    {% for estadistica in estadisticas %}
+                        <tr class="hover:bg-purple-50 dark:hover:bg-gray-600 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ estadistica.id }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ estadistica.nombre }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ estadistica.maestro_nombre }} {{ estadistica.maestro_apellidos }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <span class="inline-flex items-center px-4 py-2 bg-purple-100 dark:bg-purple-700 text-purple-700 dark:text-purple-100 font-bold rounded-full">{{ estadistica.num_alumnos }} 👥</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <a href="{{ url_for('cursos.alumnos_en_curso', id=estadistica.id) }}" class="inline-flex items-center px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded transition-colors">
+                                    👁️ Ver Alumnos
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-6">
+        <a href="{{ url_for('cursos.lista_cursos') }}" class="inline-flex items-center px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-lg transition-colors focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+            ← Volver a Cursos
+        </a>
+    </div>
+</div>
+{% endblock %}

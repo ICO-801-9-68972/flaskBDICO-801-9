@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block container %}
+
+{% with messages = get_flashed_messages(category_filter=["error"]) %}
+  {% if messages %}
+    {% for message in messages %}
+      <script>
+        alert("{{ message }}");
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<div class="flex justify-center mt-10 mb-10">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-sm">
+        
+        <form action="/insertar_alumno" method="POST" class="space-y-6">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <div class="mb-5">
+                <label class="block mb-1 text-sm font-bold text-gray-600">ID</label>
+                {{ form.id(class="block w-full border-0 border-b-2 border-gray-200 bg-transparent px-0 py-2 text-gray-900 focus:ring-0 focus:border-blue-600 placeholder-transparent transition-colors", type="number") }}
+            </div>
+
+            <div class="mb-5">
+                <label class="block mb-1 text-sm font-bold text-gray-600">Nombre</label>
+                {{ form.nombre(class="block w-full border-0 border-b-2 border-gray-200 bg-transparent px-0 py-2 text-gray-900 focus:ring-0 focus:border-blue-600 placeholder-transparent transition-colors") }}
+            </div>
+
+            <div class="mb-5">
+                <label class="block mb-1 text-sm font-bold text-gray-600">Apaterno</label>
+                {{ form.apaterno(class="block w-full border-0 border-b-2 border-gray-200 bg-transparent px-0 py-2 text-gray-900 focus:ring-0 focus:border-blue-600 placeholder-transparent transition-colors") }}
+            </div>
+
+            <div class="mb-5">
+                <label class="block mb-1 text-sm font-bold text-gray-600">Amaterno</label>
+                {{ form.amaterno(class="block w-full border-0 border-b-2 border-gray-200 bg-transparent px-0 py-2 text-gray-900 focus:ring-0 focus:border-blue-600 placeholder-transparent transition-colors") }}
+            </div>
+
+            <div class="mb-5">
+                <label class="block mb-1 text-sm font-bold text-gray-600">Edad</label>
+                {{ form.edad(class="block w-full border-0 border-b-2 border-gray-200 bg-transparent px-0 py-2 text-gray-900 focus:ring-0 focus:border-blue-600 placeholder-transparent transition-colors", type="number") }}
+            </div>
+
+            <div class="mb-8">
+                <label class="block mb-1 text-sm font-bold text-gray-600">Correo</label>
+                {{ form.correo(class="block w-full border-0 border-b-2 border-gray-200 bg-transparent px-0 py-2 text-gray-900 focus:ring-0 focus:border-blue-600 placeholder-transparent transition-colors", type="email") }}
+            </div>
+
+            <div class="flex gap-4 pt-4">
+                <button type="submit" class="w-1/2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm px-5 py-3 text-center transition-colors">
+                    Registrar
+                </button>
+                <a href="/alumnos" class="w-1/2 text-gray-700 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-3xl text-sm px-5 py-3 text-center flex items-center justify-center transition-colors">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+{% endblock %}

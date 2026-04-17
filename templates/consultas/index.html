@@ -1,0 +1,300 @@
+{% extends "layout.html" %}
+
+{% block title %}Consultas Avanzadas{% endblock %}
+
+{% block container %}
+<div class="py-12 px-4 max-w-7xl mx-auto bg-white dark:bg-gray-800 rounded-lg">
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">Consultas Avanzadas</h1>
+        <p class="text-lg text-gray-700 dark:text-gray-300">Realiza consultas avanzadas y obtén reportes detallados del sistema escolar</p>
+    </div>
+
+    <!-- Consultas Rápidas por Módulo -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Consultas de Alumnos -->
+        <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900 dark:to-green-800 rounded-xl shadow-lg p-6 border-2 border-green-200 dark:border-green-700">
+            <div class="flex items-center mb-4">
+                <div class="p-3 bg-green-200 dark:bg-green-700 rounded-full mr-4">
+                    <svg class="w-6 h-6 text-green-700 dark:text-green-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-green-800 dark:text-green-100">Alumnos</h3>
+            </div>
+            <div class="space-y-2">
+                <a href="{{ url_for('alumnos.buscar_alumnos') }}" class="block w-full text-left px-4 py-3 text-sm font-semibold bg-white dark:bg-green-800 text-green-700 dark:text-green-100 hover:bg-green-100 dark:hover:bg-green-700 rounded-lg transition-colors border border-green-300 dark:border-green-600">
+                    🔍 Buscar Alumnos
+                </a>
+                <a href="{{ url_for('alumnos.alumnos_por_edad') }}" class="block w-full text-left px-4 py-3 text-sm font-semibold bg-white dark:bg-green-800 text-green-700 dark:text-green-100 hover:bg-green-100 dark:hover:bg-green-700 rounded-lg transition-colors border border-green-300 dark:border-green-600">
+                    📊 Alumnos por Edad
+                </a>
+                <a href="{{ url_for('alumnos.alumnos_sin_cursos') }}" class="block w-full text-left px-4 py-3 text-sm font-semibold bg-white dark:bg-green-800 text-green-700 dark:text-green-100 hover:bg-green-100 dark:hover:bg-green-700 rounded-lg transition-colors border border-green-300 dark:border-green-600">
+                    📝 Alumnos sin Cursos
+                </a>
+            </div>
+        </div>
+
+        <!-- Consultas de Maestros -->
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900 dark:to-blue-800 rounded-xl shadow-lg p-6 border-2 border-blue-200 dark:border-blue-700">
+            <div class="flex items-center mb-4">
+                <div class="p-3 bg-blue-200 dark:bg-blue-700 rounded-full mr-4">
+                    <svg class="w-6 h-6 text-blue-700 dark:text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-blue-800 dark:text-blue-100">Maestros</h3>
+            </div>
+            <div class="space-y-2">
+                <a href="{{ url_for('maestros.buscar_maestros') }}" class="block w-full text-left px-4 py-3 text-sm font-semibold bg-white dark:bg-blue-800 text-blue-700 dark:text-blue-100 hover:bg-blue-100 dark:hover:bg-blue-700 rounded-lg transition-colors border border-blue-300 dark:border-blue-600">
+                    🔍 Buscar Maestros
+                </a>
+                <a href="{{ url_for('maestros.maestros_por_especialidad') }}" class="block w-full text-left px-4 py-3 text-sm font-semibold bg-white dark:bg-blue-800 text-blue-700 dark:text-blue-100 hover:bg-blue-100 dark:hover:bg-blue-700 rounded-lg transition-colors border border-blue-300 dark:border-blue-600">
+                    📊 Por Especialidad
+                </a>
+                <a href="{{ url_for('maestros.maestros_sin_cursos') }}" class="block w-full text-left px-4 py-3 text-sm font-semibold bg-white dark:bg-blue-800 text-blue-700 dark:text-blue-100 hover:bg-blue-100 dark:hover:bg-blue-700 rounded-lg transition-colors border border-blue-300 dark:border-blue-600">
+                    📝 Sin Cursos Asignados
+                </a>
+            </div>
+        </div>
+
+        <!-- Consultas de Cursos -->
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900 dark:to-purple-800 rounded-xl shadow-lg p-6 border-2 border-purple-200 dark:border-purple-700">
+            <div class="flex items-center mb-4">
+                <div class="p-3 bg-purple-200 dark:bg-purple-700 rounded-full mr-4">
+                    <svg class="w-6 h-6 text-purple-700 dark:text-purple-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-purple-800 dark:text-purple-100">Cursos</h3>
+            </div>
+            <div class="space-y-2">
+                <a href="{{ url_for('cursos.buscar_cursos') }}" class="block w-full text-left px-4 py-3 text-sm font-semibold bg-white dark:bg-purple-800 text-purple-700 dark:text-purple-100 hover:bg-purple-100 dark:hover:bg-purple-700 rounded-lg transition-colors border border-purple-300 dark:border-purple-600">
+                    🔍 Buscar Cursos
+                </a>
+                <a href="{{ url_for('cursos.cursos_con_mas_alumnos') }}" class="block w-full text-left px-4 py-3 text-sm font-semibold bg-white dark:bg-purple-800 text-purple-700 dark:text-purple-100 hover:bg-purple-100 dark:hover:bg-purple-700 rounded-lg transition-colors border border-purple-300 dark:border-purple-600">
+                    📈 Con Más Alumnos
+                </a>
+                <a href="{{ url_for('cursos.cursos_sin_alumnos') }}" class="block w-full text-left px-4 py-3 text-sm font-semibold bg-white dark:bg-purple-800 text-purple-700 dark:text-purple-100 hover:bg-purple-100 dark:hover:bg-purple-700 rounded-lg transition-colors border border-purple-300 dark:border-purple-600">
+                    📝 Sin Alumnos
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consultas Generales del Sistema -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border-2 border-orange-200 dark:border-orange-700 mb-8">
+        <div class="flex items-center mb-8">
+            <div class="p-4 bg-orange-100 dark:bg-orange-900 rounded-full mr-6">
+                <svg class="w-8 h-8 text-orange-600 dark:text-orange-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                </svg>
+            </div>
+            <div>
+                <h3 class="text-3xl font-bold text-orange-700 dark:text-orange-300">Consultas Generales del Sistema</h3>
+                <p class="text-gray-600 dark:text-gray-400 mt-1 font-semibold">Reportes y estadísticas globales</p>
+            </div>
+        </div>
+
+        <!-- Formulario de consulta general -->
+        <form method="POST" class="mb-8 bg-gray-50 dark:bg-gray-700 p-6 rounded-lg border border-gray-200 dark:border-gray-600">
+            {{ form.hidden_tag() }}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="tipo_consulta" class="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-3">
+                        Tipo de Consulta General
+                    </label>
+                    <select name="tipo_consulta" id="tipo_consulta" class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent dark:bg-gray-600 dark:text-white font-semibold text-gray-800">
+                        <option value="alumnos_por_curso" class="font-semibold">📚 Alumnos por Curso</option>
+                        <option value="cursos_por_maestro" class="font-semibold">👨‍🏫 Cursos por Maestro</option>
+                        <option value="alumnos_sin_cursos" class="font-semibold">👤 Alumnos sin Cursos</option>
+                        <option value="maestros_sin_cursos" class="font-semibold">👨‍🏫 Maestros sin Cursos</option>
+                        <option value="estadisticas" class="font-semibold">📊 Estadísticas Generales</option>
+                    </select>
+                </div>
+                <div class="flex items-end">
+                    <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-lg transition-colors focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                        🚀 Ejecutar Consulta
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Resultados -->
+        {% if resultados %}
+            <div class="border-t-4 border-orange-300 dark:border-orange-600 pt-8">
+                <h4 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <span class="bg-green-100 dark:bg-green-700 text-green-700 dark:text-green-200 rounded-full w-8 h-8 flex items-center justify-center mr-3 font-bold">✓</span>
+                    Resultados de la Consulta
+                </h4>
+
+                {% if tipo_consulta == "alumnos_por_curso" %}
+                    <div class="overflow-x-auto bg-white dark:bg-gray-700 rounded-lg border-2 border-gray-200 dark:border-gray-600">
+                        <table class="min-w-full divide-y-2 divide-gray-300 dark:divide-gray-600">
+                            <thead class="bg-orange-100 dark:bg-orange-900">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Curso</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Número de Alumnos</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y-2 divide-gray-200 dark:divide-gray-600">
+                                {% for resultado in resultados %}
+                                    <tr class="hover:bg-orange-50 dark:hover:bg-gray-600 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ resultado.curso }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold">
+                                            <span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-bold bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100 border-2 border-blue-300 dark:border-blue-700">
+                                                {{ resultado.num_alumnos }} alumnos
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                {% elif tipo_consulta == "cursos_por_maestro" %}
+                    <div class="overflow-x-auto bg-white dark:bg-gray-700 rounded-lg border-2 border-gray-200 dark:border-gray-600">
+                        <table class="min-w-full divide-y-2 divide-gray-300 dark:divide-gray-600">
+                            <thead class="bg-orange-100 dark:bg-orange-900">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Maestro</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Número de Cursos</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y-2 divide-gray-200 dark:divide-gray-600">
+                                {% for resultado in resultados %}
+                                    <tr class="hover:bg-orange-50 dark:hover:bg-gray-600 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ resultado.nombre }} {{ resultado.apellidos }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold">
+                                            <span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-bold bg-green-100 text-green-900 dark:bg-green-900 dark:text-green-100 border-2 border-green-300 dark:border-green-700">
+                                                {{ resultado.num_cursos }} cursos
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                {% elif tipo_consulta == "alumnos_sin_cursos" %}
+                    <div class="overflow-x-auto bg-white dark:bg-gray-700 rounded-lg border-2 border-gray-200 dark:border-gray-600">
+                        <table class="min-w-full divide-y-2 divide-gray-300 dark:divide-gray-600">
+                            <thead class="bg-orange-100 dark:bg-orange-900">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">ID</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Nombre Completo</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Edad</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Correo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y-2 divide-gray-200 dark:divide-gray-600">
+                                {% for alumno in resultados %}
+                                    <tr class="hover:bg-orange-50 dark:hover:bg-gray-600 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ alumno.id }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ alumno.nombre }} {{ alumno.apaterno }} {{ alumno.amaterno }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ alumno.edad }} años</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-blue-600 dark:text-blue-300">{{ alumno.correo }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                {% elif tipo_consulta == "maestros_sin_cursos" %}
+                    <div class="overflow-x-auto bg-white dark:bg-gray-700 rounded-lg border-2 border-gray-200 dark:border-gray-600">
+                        <table class="min-w-full divide-y-2 divide-gray-300 dark:divide-gray-600">
+                            <thead class="bg-orange-100 dark:bg-orange-900">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Matrícula</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Nombre Completo</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Especialidad</th>
+                                    <th class="px-6 py-4 text-left text-sm font-bold text-orange-900 dark:text-orange-100 uppercase tracking-wider">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y-2 divide-gray-200 dark:divide-gray-600">
+                                {% for maestro in resultados %}
+                                    <tr class="hover:bg-orange-50 dark:hover:bg-gray-600 transition-colors">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ maestro.matricula }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ maestro.nombre }} {{ maestro.apellidos }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ maestro.especialidad }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-blue-600 dark:text-blue-300">{{ maestro.email }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                {% elif tipo_consulta == "estadisticas" %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 rounded-xl p-6 border-2 border-blue-300 dark:border-blue-700 shadow-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-blue-700 dark:text-blue-300 font-bold text-sm">Total Alumnos</p>
+                                    <p class="text-4xl font-bold text-blue-900 dark:text-blue-100 mt-2">{{ resultados.total_alumnos }}</p>
+                                </div>
+                                <svg class="w-12 h-12 text-blue-400 dark:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900 dark:to-green-800 rounded-xl p-6 border-2 border-green-300 dark:border-green-700 shadow-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-green-700 dark:text-green-300 font-bold text-sm">Total Maestros</p>
+                                    <p class="text-4xl font-bold text-green-900 dark:text-green-100 mt-2">{{ resultados.total_maestros }}</p>
+                                </div>
+                                <svg class="w-12 h-12 text-green-400 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800 rounded-xl p-6 border-2 border-purple-300 dark:border-purple-700 shadow-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-purple-700 dark:text-purple-300 font-bold text-sm">Total Cursos</p>
+                                    <p class="text-4xl font-bold text-purple-900 dark:text-purple-100 mt-2">{{ resultados.total_cursos }}</p>
+                                </div>
+                                <svg class="w-12 h-12 text-purple-400 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-yellow-100 to-yellow-200 dark:from-yellow-900 dark:to-yellow-800 rounded-xl p-6 border-2 border-yellow-300 dark:border-yellow-700 shadow-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-yellow-700 dark:text-yellow-300 font-bold text-sm">Total Inscripciones</p>
+                                    <p class="text-4xl font-bold text-yellow-900 dark:text-yellow-100 mt-2">{{ resultados.total_inscripciones }}</p>
+                                </div>
+                                <svg class="w-12 h-12 text-yellow-400 dark:text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900 dark:to-red-800 rounded-xl p-6 border-2 border-red-300 dark:border-red-700 shadow-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-red-700 dark:text-red-300 font-bold text-sm">Promedio Alumnos/Curso</p>
+                                    <p class="text-4xl font-bold text-red-900 dark:text-red-100 mt-2">{{ "%.1f"|format(resultados.promedio_alumnos_por_curso) }}</p>
+                                </div>
+                                <svg class="w-12 h-12 text-red-400 dark:text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Enlaces de navegación -->
+    <div class="text-center mt-10">
+        <a href="{{ url_for('index') }}" class="inline-flex items-center px-8 py-4 border-2 border-transparent text-lg font-bold rounded-lg text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-700">
+            ← Volver al Menú Principal
+        </a>
+    </div>
+</div>
+{% endblock %}

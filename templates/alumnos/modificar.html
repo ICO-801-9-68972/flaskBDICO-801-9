@@ -1,0 +1,56 @@
+{% extends "layout.html" %} 
+{% block container %} 
+{% import "macros.html" as macros %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <h2 class="max-w-md mx-auto text-2xl font-bold mb-6 text-gray-800">
+    Modificar Alumno
+  </h2>
+
+  <form action="" method="POST" novalidate class="max-w-md mx-auto">
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+    {# Clase para edición: Fondo blanco, texto oscuro y bordes definidos #} 
+    {% set edit_class = "block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 shadow-sm" %}
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.id, class=edit_class)}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.nombre, class=edit_class)}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.apaterno, class=edit_class)}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.amaterno, class=edit_class)}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.edad, class=edit_class)}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.correo, class=edit_class)}}
+    </div>
+
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <input
+        type="submit"
+        value="Guardar Cambios"
+        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
+      />
+      <a
+        href="/alumnos"
+        class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center justify-center"
+      >
+        Volver
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

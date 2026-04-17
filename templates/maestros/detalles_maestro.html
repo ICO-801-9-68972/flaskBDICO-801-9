@@ -1,0 +1,65 @@
+{% extends "layout.html" %} 
+{% block container %}
+
+<div class="group py-32 relative overflow-x-auto sm:rounded-lg">
+  <div class="relative bg-white max-w-sm w-full mx-auto p-8 border border-gray-200 rounded-2xl shadow-lg">
+    
+    <div class="absolute top-4 end-4">
+        <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5" type="button">
+            <span class="sr-only">Open dropdown</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+            </svg>
+        </button>
+        <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 border border-gray-100">
+            <ul class="py-2" aria-labelledby="dropdownButton">
+                <li>
+                    <a href="{{ url_for('maestros.modificar', id=maestro.matricula) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Editar</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('maestros.eliminar', id=maestro.matricula) }}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Eliminar</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="flex flex-col items-center">
+      <img
+        class="w-24 h-24 mb-6 rounded-full shadow-md object-cover border-2 border-blue-50"
+        src="{{url_for('static', filename='img/usuario.png')}}"
+        alt="Maestro image"
+      />
+
+      <span class="text-xs font-bold uppercase text-blue-600 mb-1">Matrícula: {{ maestro.id }}</span>
+      
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-center">
+        {{ maestro.nombre }} {{ maestro.apellidos }}
+      </h5>
+
+      <div class="space-y-2 mt-2 w-full">
+          <p class="flex items-center justify-center text-gray-600">
+              <span class="font-semibold text-gray-800 mr-2">Especialidad:</span> {{ maestro.especialidad }}
+          </p>
+          <p class="flex items-center justify-center text-gray-600 text-sm">
+              <span class="font-semibold text-gray-800 mr-2">Email:</span> {{ maestro.email }}
+          </p>
+      </div>
+
+      <div class="flex mt-8 gap-4">
+        <a
+          href="{{ url_for('maestros.maestros') }}"
+          class="bg-gray-800 text-white px-6 py-2.5 rounded-full flex items-center gap-2 hover:bg-gray-900 transition-all shadow-md font-medium text-sm"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Regresar a la lista
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "layout.html" %} 
+{% block container %} 
+{% import "macros.html" as macros %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg">
+  <div class="max-w-md mx-auto mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">¿Eliminar este registro?</h2>
+    <p class="text-gray-600">Los datos se borrarán permanentemente.</p>
+  </div>
+
+  <form action="/eliminar_alumno" method="POST" novalidate class="max-w-md mx-auto">
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+    {# Clase mejorada para los campos bloqueados #} 
+    {% set input_class = "block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" %}
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.id, class=input_class, readonly=True)}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.nombre, class=input_class, readonly=True)}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.apaterno, class=input_class, readonly=True)}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.amaterno, class=input_class, readonly=True)}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.edad, class=input_class, readonly=True)}}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.correo, class=input_class, readonly=True)}}
+    </div>
+
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <button
+        type="submit"
+        class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
+      >
+        Confirmar Eliminar
+      </button>
+      
+      <a
+        href="/alumnos"
+        class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center flex items-center justify-center"
+      >
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

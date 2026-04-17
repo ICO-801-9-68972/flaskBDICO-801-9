@@ -1,0 +1,53 @@
+{% extends "layout.html" %} 
+{% block container %} 
+{% import "macros.html" as macros %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg px-4">
+  <h2 class="max-w-md mx-auto text-2xl font-bold mb-6 text-gray-800 dark:text-white">
+    Modificar Maestro
+  </h2>
+
+  {# Quitamos el action vacío para que use la URL actual por defecto #}
+  <form method="POST" class="max-w-md mx-auto">
+    
+    {# REGLA DE ORO: Solo usa una forma de CSRF. Como usamos FlaskForm, esta es la buena: #}
+    {{ form.csrf_token }}
+
+    {% set edit_class = "block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition-colors" %}
+
+    <div class="relative z-0 w-full mb-5 group">
+      <label class="block mb-2 text-sm font-medium text-gray-700">Matrícula (No editable)</label>
+      {# Mostramos el valor pero usamos un input normal para que WTForms no intente validarlo como 'IntegerField' #}
+      <input type="text" value="{{ form.id.data }}" class="block p-2.5 w-full text-sm text-gray-500 bg-gray-100 rounded-lg border border-gray-200 cursor-not-allowed shadow-sm" readonly>
+      
+      {# Ocultamos el campo real del form para que no estorbe en la validación visual #}
+      <div style="display: none;">{{ form.id }}</div>
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.nombre, class=edit_class) }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.apellidos, class=edit_class) }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.especialidad, class=edit_class) }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.email, class=edit_class) }}
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4 mt-6">
+      <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer transition-colors shadow-md">
+        Guardar Cambios
+      </button>
+      <a href="{{ url_for('maestros.maestros') }}" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors flex items-center justify-center">
+        Volver
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

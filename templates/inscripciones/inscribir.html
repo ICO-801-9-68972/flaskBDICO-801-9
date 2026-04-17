@@ -1,0 +1,44 @@
+{% extends "layout.html" %} 
+{% block container %}
+<div class="py-12 px-4 max-w-2xl mx-auto">
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="mb-6 space-y-4">
+            {% for category, message in messages %}
+                {% set color_class = "text-red-800 bg-red-50 dark:bg-gray-800 dark:text-red-400" if category == "error" else "text-green-800 bg-green-50 dark:bg-gray-800 dark:text-green-400" %}
+                <div class="p-4 text-sm rounded-lg {{ color_class }}" role="alert">
+                    <span class="font-medium">{{ message }}</span>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="bg-white border border-gray-200 rounded-2xl shadow-lg p-8 dark:bg-gray-800 dark:border-gray-700">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Inscribir Alumno a Curso</h2>
+
+        <form method="POST" action="" class="space-y-6">
+            {{ form.csrf_token }}
+            
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.alumno_id.label }}</label>
+                {{ form.alumno_id(class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white") }}
+            </div>
+            
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.curso_id.label }}</label>
+                {{ form.curso_id(class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white") }}
+            </div>
+            
+            <button type="submit" class="w-full text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-500 dark:hover:bg-yellow-600 dark:focus:ring-yellow-800 transition-colors">
+                Realizar Inscripción
+            </button>
+        </form>
+    </div>
+
+    <div class="mt-6 text-center">
+        <a href="{{ url_for('index') }}" class="font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">&larr; Volver al menú principal</a>
+    </div>
+</div>
+{% endblock %}

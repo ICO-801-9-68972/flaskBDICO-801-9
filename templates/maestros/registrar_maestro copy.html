@@ -1,0 +1,55 @@
+{% extends "layout.html" %} 
+{% block container %} 
+{% import "macros.html" as macros %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg px-4">
+  <h2 class="max-w-md mx-auto text-2xl font-bold mb-6 text-gray-800 dark:text-white">
+    Registrar Maestro
+  </h2>
+
+  <form
+    action="{{ url_for('maestros.registrar') }}" 
+    method="POST"
+    class="max-w-md mx-auto"
+  >
+    {# Dejamos SOLO esta línea para el token. Quité la manual que causaba el Bad Request #}
+    {{ form.csrf_token }}
+    
+    {% set estilo_campo = "block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 shadow-sm" %}
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.id, class=estilo_campo, placeholder="Matrícula") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.nombre, class=estilo_campo, placeholder="Nombre") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.apellidos, class=estilo_campo, placeholder="Apellidos") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.especialidad, class=estilo_campo, placeholder="Especialidad") }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.email, class=estilo_campo, placeholder="Correo Electrónico") }}
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4 mt-6">
+      <input
+        type="submit"
+        value="Guardar Maestro"
+        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer transition-colors"
+      />
+      <a
+        href="{{ url_for('maestros.maestros') }}"
+        class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors flex items-center justify-center"
+      >
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}Cursos sin Alumnos{% endblock %}
+
+{% block container %}
+<div class="py-6 px-4 max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">📝 Cursos sin Alumnos Inscritos</h1>
+    <p class="text-gray-600 dark:text-gray-300 mb-8 text-lg">Cursos que aún no tienen alumnos registrados</p>
+
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border-2 border-purple-200 dark:border-purple-700">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+            <span class="bg-purple-100 dark:bg-purple-700 text-purple-700 dark:text-purple-200 rounded-full w-8 h-8 flex items-center justify-center mr-3 font-bold">✓</span>
+            Lista de Cursos ({{ cursos|length }} encontrados)
+        </h2>
+
+        {% if cursos %}
+            <div class="overflow-x-auto bg-white dark:bg-gray-700 rounded-lg border-2 border-gray-200 dark:border-gray-600">
+                <table class="min-w-full divide-y-2 divide-gray-300 dark:divide-gray-600">
+                    <thead class="bg-purple-100 dark:bg-purple-900">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-sm font-bold text-purple-900 dark:text-purple-100 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-4 text-left text-sm font-bold text-purple-900 dark:text-purple-100 uppercase tracking-wider">Nombre del Curso</th>
+                            <th class="px-6 py-4 text-left text-sm font-bold text-purple-900 dark:text-purple-100 uppercase tracking-wider">Descripción</th>
+                            <th class="px-6 py-4 text-left text-sm font-bold text-purple-900 dark:text-purple-100 uppercase tracking-wider">Maestro</th>
+                            <th class="px-6 py-4 text-left text-sm font-bold text-purple-900 dark:text-purple-100 uppercase tracking-wider">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y-2 divide-gray-200 dark:divide-gray-600">
+                        {% for curso in cursos %}
+                            <tr class="hover:bg-purple-50 dark:hover:bg-gray-600 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ curso.id }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ curso.nombre }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300 max-w-xs truncate">{{ curso.descripcion or "Sin descripción" }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm space-x-2">
+                                    <a href="{{ url_for('cursos.alumnos_en_curso', id=curso.id) }}" class="inline-flex items-center px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded transition-colors">
+                                        👥 Alumnos
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="bg-purple-50 dark:bg-purple-900 border-2 border-purple-200 dark:border-purple-700 rounded-lg p-8 text-center">
+                <span class="text-4xl mb-4 block">✓</span>
+                <h3 class="text-lg font-bold text-purple-900 dark:text-purple-100 mb-2">¡Excelente!</h3>
+                <p class="text-purple-700 dark:text-purple-300">Todos los cursos tienen al menos un alumno inscrito.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mt-6">
+        <a href="{{ url_for('cursos.lista_cursos') }}" class="inline-flex items-center px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-lg transition-colors focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+            ← Volver a Cursos
+        </a>
+    </div>
+</div>
+{% endblock %}

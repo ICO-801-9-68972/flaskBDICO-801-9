@@ -1,0 +1,51 @@
+{% extends "layout.html" %} 
+{% block container %}
+<div class="py-12 px-4 max-w-2xl mx-auto">
+    
+    <div class="bg-white border {% if curso %} border-blue-200 {% else %} border-gray-200 {% endif %} rounded-2xl shadow-lg p-8 dark:bg-gray-800 dark:border-gray-700">
+        
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            {% if curso %} 
+                Reasignar Maestro: <span class="text-blue-600">{{ curso.nombre }}</span>
+            {% else %} 
+                Agregar Nuevo Curso 
+            {% endif %}
+        </h2>
+
+        <form method="POST" action="" class="space-y-6">
+            {{ form.csrf_token }}
+            
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.nombre.label }}</label>
+                {{ form.nombre(class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white") }}
+            </div>
+            
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.descripcion.label }}</label>
+                {{ form.descripcion(class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white") }}
+            </div>
+
+            <div class="{% if curso %} p-4 bg-blue-50 rounded-xl border border-blue-100 dark:bg-gray-700 {% endif %}">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.maestro_id.label }}</label>
+                {{ form.maestro_id(class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white") }}
+                
+                {% if curso %}
+                <p class="mt-2 text-xs text-blue-600 dark:text-blue-400 font-medium italic">
+                    * Selecciona un nuevo maestro para poder liberar al anterior.
+                </p>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="w-full text-white {% if curso %} bg-blue-600 hover:bg-blue-700 {% else %} bg-purple-600 hover:bg-purple-700 {% endif %} focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors">
+                {% if curso %} Actualizar y Reasignar {% else %} Guardar Curso {% endif %}
+            </button>
+        </form>
+    </div>
+
+    <div class="mt-6 text-center">
+        <a href="{{ url_for('cursos.lista_cursos') }}" class="font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+            Cancelar y regresar
+        </a>
+    </div>
+</div>
+{% endblock %}

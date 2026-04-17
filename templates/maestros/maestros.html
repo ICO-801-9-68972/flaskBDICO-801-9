@@ -1,0 +1,46 @@
+{% extends "layout.html" %} 
+{% block container %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg px-4">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+      Gestión de Docentes
+    </h2>
+    <a href="{{ url_for('maestros.registrar') }}" class="bg-green-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-green-600 transition-all shadow-md">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+      </svg>
+      Nuevo Maestro
+    </a>
+  </div>
+
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 shadow-lg rounded-lg overflow-hidden">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th class="px-6 py-3">Matricula</th>
+        <th class="px-6 py-3">Nombre Completo</th>
+        <th class="px-6 py-3">Especialidad</th>
+        <th class="px-6 py-3">Email</th>
+        <th class="px-6 py-3 text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for teacher in maestros %}
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
+        <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+          {{ teacher.matricula }}
+        </td>
+        <td class="px-6 py-4">{{ teacher.nombre }} {{ teacher.apellidos }}</td>
+        <td class="px-6 py-4">{{ teacher.especialidad }}</td>
+        <td class="px-6 py-4">{{ teacher.email }}</td>
+        <td class="px-6 py-4 flex gap-2 justify-center">
+          <a href="{{ url_for('maestros.modificar', id=teacher.matricula) }}" class="bg-orange-500 text-white px-3 py-1.5 rounded hover:bg-orange-600 text-xs">Editar</a>
+          <a href="{{ url_for('maestros.detalles', id=teacher.matricula) }}" class="bg-purple-500 text-white px-3 py-1.5 rounded hover:bg-purple-600 text-xs">Detalles</a>
+          <a href="{{ url_for('maestros.eliminar', id=teacher.matricula) }}" class="bg-red-500 text-white px-3 py-1.5 rounded hover:bg-red-600 text-xs">Eliminar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

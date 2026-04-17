@@ -1,0 +1,89 @@
+{% extends "layout.html" %} 
+{% block container %} 
+{% import "macros.html" as macros %}
+
+<div class="py-32 relative overflow-x-auto sm:rounded-lg px-4 w-full">
+  <div class="max-w-md mx-auto mb-6">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">¿Eliminar este maestro?</h2>
+    
+    {# Lógica de advertencia si tiene cursos #}
+    {% if cursos %}
+      <div class="p-4 mt-4 text-orange-800 border border-orange-300 rounded-lg bg-orange-50 dark:bg-gray-800 dark:text-orange-300" role="alert">
+        <div class="flex items-center mb-2">
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+          <p class="font-bold uppercase text-xs">Acción Bloqueada</p>
+        </div>
+        <p class="text-sm mb-3">Este maestro tiene <strong>{{ cursos|length }}</strong> curso(s) asignado(s). Debes reasignarlos o borrarlos primero:</p>
+        
+        <ul class="space-y-2 border-t border-orange-200 pt-3 mt-2">
+          {% for curso in cursos %}
+          <li class="flex items-center justify-between text-xs">
+            <span class="font-medium italic">- {{ curso.nombre }}</span>
+            <div class="flex items-center space-x-3">
+              
+              {# REASIGNAR: Ahora usa la ruta 'modificar' con el id del curso #}
+              <a href="{{ url_for('cursos.modificar', id=curso.id) }}" class="text-blue-700 hover:underline font-bold uppercase">Reasignar</a>
+              
+              {# BORRAR: Formulario pequeño para borrar el curso "ahí mismo" #}
+              <form action="{{ url_for('cursos.eliminar_rapido', id_curso=curso.id, id_maestro=maestro.matricula) }}" method="POST" class="inline">
+                {{ form.csrf_token }}
+                <button type="submit" class="text-red-700 hover:underline font-bold uppercase cursor-pointer">
+                  Borrar
+                </button>
+              </form>
+
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% else %}
+      <p class="text-red-600 font-medium mt-1 italic italic">Los datos se borrarán permanentemente y no se podrán recuperar.</p>
+    {% endif %}
+  </div>
+
+  <form action="{{ url_for('maestros.eliminar', id=maestro.matricula) }}" method="POST" class="max-w-md mx-auto">
+    {{ form.csrf_token }}
+
+    {% set input_class = "block p-2.5 w-full text-sm text-gray-600 bg-gray-100 rounded-lg border border-gray-300 cursor-not-allowed shadow-sm" %}
+
+    <div class="relative z-0 w-full mb-5 group">
+        <label class="block mb-2 text-sm font-medium text-gray-700">Matrícula</label>
+        <input type="text" value="{{ maestro.matricula }}" class="{{ input_class }}" readonly>
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.nombre, class=input_class, readonly=True) }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.apellidos, class=input_class, readonly=True) }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.especialidad, class=input_class, readonly=True) }}
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      {{ macros.campoNuevo(form.email, class=input_class, readonly=True) }}
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4 mt-6">
+      <button
+        type="submit"
+        {% if cursos %} disabled {% endif %}
+        class="text-white {% if cursos %} bg-gray-400 cursor-not-allowed {% else %} bg-red-600 hover:bg-red-700 {% endif %} focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors shadow-md"
+      >
+        {% if cursos %} Reasignación Pendiente {% else %} Confirmar Eliminar {% endif %}
+      </button>
+      
+      <a
+        href="{{ url_for('maestros.maestros') }}"
+        class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors flex items-center justify-center"
+      >
+        Cancelar
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

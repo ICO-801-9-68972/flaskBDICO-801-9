@@ -1,46 +1,48 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask import flash
 from flask_wtf.csrf import CSRFProtect
+from flask_migrate import Migrate
 from config import DevelopmentConfig
-# IMPORTANTE: Agregar Maestros aquí
-from models import db, Alumnos, Maestros 
 import forms
 
-app = Flask(__name__)
+# <-- IMPORTANTE: Agregamos Curso e Inscripcion para que db.create_all() las detecte
+from models import db, Alumnos, Maestros, Curso, Inscripcion
+from forms import UserForm, MaestroForm
+
+# 1. IMPORTAMOS LOS BLUEPRINTS (Módulos)
+from maestros import maestros_bp
+from alumnos import alumnos_bp 
+from cursos import cursos_bp           # <-- NUEVO: Importamos el de cursos
+from inscripciones import ins_bp       # <-- NUEVO: Importamos el de inscripciones
+
+# 2. INICIALIZAMOS LA APP 
+app = Flask(__name__)  
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
+migrate = Migrate(app, db)
 csrf = CSRFProtect(app)
 
-# ... (Tus rutas de / y /usuarios se mantienen igual) ...
+# 3. CONECTAMOS LOS MÓDULOS A TU APP PRINCIPAL
+app.register_blueprint(maestros_bp)
+app.register_blueprint(alumnos_bp) 
+app.register_blueprint(cursos_bp)      # <-- NUEVO: Lo registramos en la app
+app.register_blueprint(ins_bp)         # <-- NUEVO: Lo registramos en la app
 
-# --- NUEVAS RUTAS PARA MAESTROS ---
-@app.route("/maestros", methods=["GET", "POST"])
-def maestros():
-    create_maestro = forms.MaestroForm(request.form)
-    # select * from maestros
-    maestro = Maestros.query.all()
-    return render_template("maestros.html", form=create_maestro, maestro=maestro)
+# ==========================================
+# RUTAS PRINCIPALES
+# ==========================================
 
-@app.route("/datos_maestros", methods=["GET", "POST"])
-def datos_maestros():
-    mat = 0
-    nom = ''
-    ape = ''
-    esp = ''
-    email = ''
-    maestros_clas = forms.MaestroForm(request.form)
-    
-    if request.method == 'POST':
-        mat = maestros_clas.matricula.data
-        nom = maestros_clas.nombre.data
-        ape = maestros_clas.apellidos.data
-        esp = maestros_clas.especialidad.data
-        email = maestros_clas.email.data
-    
-    return render_template('datos_maestros.html', form=maestros_clas, mat=mat, nom=nom, ape=ape, esp=esp, email=email)
+@app.route("/", methods=["GET", "POST"])
+@app.route("/index")
+def index():
+    # Menú principal (pantalla genérica de bienvenida)
+    return render_template("index.html")
 
-if __name__ == '__main__':
+# ==========================================
+# INICIO DE LA APLICACIÓN
+# ==========================================
+if __name__ == "__main__":
     csrf.init_app(app)
     with app.app_context():
         db.create_all()
-    app.run()
+    app.run(debug=True, port=5001)
